@@ -1,7 +1,8 @@
 import "./config/loadEnv";
 import app from "./app";
+import Logger from "./lib/logger";
 
 const PORT = process.env.PORT || 4050;
 app.listen(PORT, () => {
-  console.log(`Server has been started on PORT ${PORT}`);
+  Logger.info(`Server has been started on PORT ${PORT}`);
 });
