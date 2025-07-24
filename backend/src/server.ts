@@ -1,4 +1,6 @@
-import "./config/loadEnv";
+import { loadEnv } from "./config/loadEnv";
+loadEnv();
+
 import app from "./app";
 import Logger from "./lib/logger";
 
