@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Dashboard from './components/Dashboard';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
-
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page);
-  };
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'landing':
-        return <LandingPage onNavigate={handleNavigate} />;
-      case 'login':
-        return <LoginPage onNavigate={handleNavigate} />;
-      case 'register':
-        return <RegisterPage onNavigate={handleNavigate} />;
-      case 'dashboard':
-        return <Dashboard onNavigate={handleNavigate} />;
-      default:
-        return <LandingPage onNavigate={handleNavigate} />;
-    }
-  };
-
   return (
-    <div className="App">
-      {renderCurrentPage()}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

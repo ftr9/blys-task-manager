@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   CheckCircle, 
-  Plus, 
-  Search, 
-  Filter, 
-  Edit, 
-  Trash2, 
   Circle,
   Clock,
-  User,
+  Edit,
   LogOut,
+  Plus,
+  Search,
+  Trash2,
+  User,
   ChevronDown,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-
-interface DashboardProps {
-  onNavigate: (page: string) => void;
-}
 
 interface Task {
   id: number;
@@ -34,9 +30,11 @@ interface TaskFormData {
   description: string;
   priority: 'high' | 'medium' | 'low';
   dueDate: string;
+  status: 'todo' | 'in-progress' | 'completed';
 }
 
-export default function Dashboard({ onNavigate }: DashboardProps) {
+export default function Dashboard() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('All Tasks');
   const [sortBy, setSortBy] = useState('Due Date');
@@ -48,7 +46,8 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
     title: '',
     description: '',
     priority: 'medium',
-    dueDate: ''
+    dueDate: '',
+    status: 'todo'
   });
   const tasksPerPage = 5;
 
@@ -119,24 +118,24 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       title: taskForm.title,
       description: taskForm.description,
       priority: taskForm.priority,
-      status: 'todo',
+      status: taskForm.status,
       dueDate: new Date(taskForm.dueDate).toLocaleDateString('en-US'),
-      isOverdue: isTaskOverdue(taskForm.dueDate, 'todo')
+      isOverdue: isTaskOverdue(taskForm.dueDate, taskForm.status)
     };
 
     setTasks([...tasks, newTask]);
-    setTaskForm({ title: '', description: '', priority: 'medium', dueDate: '' });
+    setTaskForm({ title: '', description: '', priority: 'medium', dueDate: '', status: 'todo' });
     setShowAddModal(false);
   };
 
   // Edit task
   const handleEditTask = (task: Task) => {
-    setEditingTask(task);
     setTaskForm({
       title: task.title,
       description: task.description,
       priority: task.priority,
-      dueDate: new Date(task.dueDate).toISOString().split('T')[0]
+      dueDate: new Date(task.dueDate).toISOString().split('T')[0],
+      status: task.status
     });
     setShowEditModal(true);
   };
@@ -151,12 +150,13 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       title: taskForm.title,
       description: taskForm.description,
       priority: taskForm.priority,
+      status: taskForm.status,
       dueDate: new Date(taskForm.dueDate).toLocaleDateString('en-US'),
-      isOverdue: isTaskOverdue(taskForm.dueDate, editingTask.status)
+      isOverdue: isTaskOverdue(taskForm.dueDate, taskForm.status)
     };
 
     setTasks(tasks.map(task => task.id === editingTask.id ? updatedTask : task));
-    setTaskForm({ title: '', description: '', priority: 'medium', dueDate: '' });
+    setTaskForm({ title: '', description: '', priority: 'medium', dueDate: '', status: 'todo' });
     setEditingTask(null);
     setShowEditModal(false);
   };
@@ -166,34 +166,6 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
     if (window.confirm('Are you sure you want to delete this task?')) {
       setTasks(tasks.filter(task => task.id !== taskId));
     }
-  };
-
-  // Toggle task status
-  const toggleTaskStatus = (taskId: number) => {
-    setTasks(tasks.map(task => {
-      if (task.id === taskId) {
-        let newStatus: 'todo' | 'in-progress' | 'completed';
-        switch (task.status) {
-          case 'todo':
-            newStatus = 'in-progress';
-            break;
-          case 'in-progress':
-            newStatus = 'completed';
-            break;
-          case 'completed':
-            newStatus = 'todo';
-            break;
-          default:
-            newStatus = 'todo';
-        }
-        return {
-          ...task,
-          status: newStatus,
-          isOverdue: isTaskOverdue(task.dueDate, newStatus)
-        };
-      }
-      return task;
-    }));
   };
 
   // Filter and sort tasks
@@ -243,34 +215,19 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
     }
   };
 
-  const getStatusIcon = (status: string, taskId: number) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return (
-        <button onClick={() => toggleTaskStatus(taskId)} className="hover:scale-110 transition-transform">
-          <CheckCircle className="w-5 h-5 text-green-500" />
-        </button>
-      );
-      case 'in-progress': return (
-        <button onClick={() => toggleTaskStatus(taskId)} className="hover:scale-110 transition-transform">
-          <Clock className="w-5 h-5 text-blue-500" />
-        </button>
-      );
-      case 'todo': return (
-        <button onClick={() => toggleTaskStatus(taskId)} className="hover:scale-110 transition-transform">
-          <Circle className="w-5 h-5 text-gray-400" />
-        </button>
-      );
-      default: return (
-        <button onClick={() => toggleTaskStatus(taskId)} className="hover:scale-110 transition-transform">
-          <Circle className="w-5 h-5 text-gray-400" />
-        </button>
-      );
+      case 'completed': 
+        return <CheckCircle className="w-5 h-5 text-green-500" />;
+      case 'in-progress': 
+        return <Clock className="w-5 h-5 text-blue-500" />;
+      case 'todo': 
+      default: 
+        return <Circle className="w-5 h-5 text-gray-400" />;
     }
   };
 
   const totalTasks = sortedTasks.length;
-  const inProgressTasks = sortedTasks.filter(task => task.status === 'in-progress').length;
-  const completedTasks = sortedTasks.filter(task => task.status === 'completed').length;
 
   // Pagination logic
   const totalPages = Math.ceil(totalTasks / tasksPerPage);
@@ -295,7 +252,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
               <span className="text-sm font-medium">John Doe</span>
             </div>
             <button 
-              onClick={() => onNavigate('landing')}
+              onClick={() => navigate('/')}
               className="text-gray-400 hover:text-gray-600 transition-colors"
             >
               <LogOut className="w-5 h-5" />
@@ -413,7 +370,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4 flex-1">
-                    {getStatusIcon(task.status, task.id)}
+                    {getStatusIcon(task.status)}
                     <div className="flex-1 min-w-0">
                       <h3 className={`font-semibold text-gray-900 mb-1 ${task.status === 'completed' ? 'line-through text-gray-500' : ''}`}>
                         {task.title}
@@ -644,7 +601,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                   onClick={() => {
                     setShowEditModal(false);
                     setEditingTask(null);
-                    setTaskForm({ title: '', description: '', priority: 'medium', dueDate: '' });
+                    setTaskForm({ title: '', description: '', priority: 'medium', dueDate: '', status: 'todo' });
                   }}
                   className="flex-1 px-4 py-2 text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                 >

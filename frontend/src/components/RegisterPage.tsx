@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CheckCircle, Eye, EyeOff, User, Mail, Lock } from 'lucide-react';
 
-interface RegisterPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export default function RegisterPage({ onNavigate }: RegisterPageProps) {
+export default function RegisterPage() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,7 +16,7 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate registration success
-    onNavigate('dashboard');
+    navigate('/dashboard');
   };
 
   return (
@@ -137,7 +135,7 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
             <p className="text-gray-600">
               Already have an account?{' '}
               <button 
-                onClick={() => onNavigate('login')}
+                onClick={() => navigate('/login')}
                 className="text-teal-600 hover:text-teal-700 font-semibold"
               >
                 Sign in
@@ -148,7 +146,7 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
 
         <div className="text-center mt-6">
           <button 
-            onClick={() => onNavigate('landing')}
+            onClick={() => navigate('/')}
             className="text-gray-500 hover:text-gray-700 text-sm"
           >
             ← Back to home
