@@ -261,6 +261,7 @@ export default function Dashboard() {
         </div>
       </header>
 
+      <div className='max-w-[800px] mx-auto'>
       <div className="p-6">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -471,6 +472,7 @@ export default function Dashboard() {
             </div>
           )}
         </div>
+      </div>
       </div>
 
       {/* Add Task Modal */}
