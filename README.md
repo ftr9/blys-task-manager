@@ -2,6 +2,14 @@
 
 A secure, full-stack Task Manager application using the MERN stack with MySQL as the database. The application supports user authentication, task management features, and a clean, responsive UI .
 
+### Live Url
+Frontend - [https://blys-task-manager-frontend.onrender.com](https://blys-task-manager-frontend.onrender.com)
+
+Backend [https://blys-task-manager.onrender.com](https://blys-task-manager.onrender.com)
+
+<img width="1013" height="818" alt="Screenshot 2025-07-27 at 23 56 16" src="https://github.com/user-attachments/assets/99385802-287b-4cbb-8117-ae84290f4a78" />
+
+
 ## Project Structure
 
 ```
