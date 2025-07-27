@@ -16,7 +16,6 @@ blys-task-manager/
 
 - User registration and login using **JWT-based authentication**
 - Passwords securely hashed using **bcrypt**
-- JWT tokens stored securely (e.g., **HTTP-only cookies** or **localStorage** — chosen with proper justification)
 
 ### 🛡️ Protected Routes
 
@@ -62,7 +61,7 @@ Authenticated users can:
 ### 1. Clone the Repository
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/ftr9/blys-task-manager.git
 cd blys-task-manager
 ```
 
@@ -96,7 +95,7 @@ cd blys-task-manager
    ```bash
    npm install
    ```
-3. Configure the API base URL in `vite.config.ts` if needed.
+3. Configure the API base URL in .env
 4. Start the frontend dev server:
    ```bash
    npm run dev

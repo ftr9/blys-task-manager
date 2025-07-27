@@ -50,49 +50,33 @@ yarn install
 
 Create a `.env` file in the root directory with the following variables:
 
-```env
+````env
 # Server
-PORT=5000
-NODE_ENV=development
+PORT=4050
 
 # JWT
 JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRE=30d
+JWT_EXPIRE=1h
 
 # Database
-DB_HOST=localhost
+DB_HOST=127.0.0.1
 DB_USER=your_db_username
 DB_PASSWORD=your_db_password
 DB_NAME=task_manager
 
-# CORS (optional)
-CLIENT_URL=http://localhost:3000
-```
 
 ### 4. Set up the database
+Run the SQL script located at `backend/database/init.sql` in your MySQL database.
+You can execute it using a MySQL GUI (like MySQL Workbench, DBeaver, or TablePlus) or directly from the terminal using a MySQL client.
+This script will initialize the necessary tables and schema for the application.
 
-1. Create a new MySQL database:
-
-```sql
-CREATE DATABASE task_manager;
-```
-
-2. Create the required tables by running the SQL scripts in the `database` directory.
-
-### 5. Run migrations (if any)
-
-```bash
-# If you have migrations set up
-npm run migrate
-```
-
-### 6. Start the development server
+### 5. Start the development server
 
 ```bash
 npm run dev
 ```
 
-The API will be available at `http://localhost:5000`
+The API will be available at `http://localhost:4050`
 
 ## API Documentation
 
@@ -134,7 +118,7 @@ POST /api/login
 #### Get all tasks (with pagination and sorting)
 
 ```http
-GET /api/tasks?page=1&limit=10&sortBy=created_at&sortOrder=DESC
+GET /api/tasks?page=1&limit=10&sortBy=created_at&sortOrder=desc
 ```
 
 #### Create a new task
@@ -195,23 +179,21 @@ The API returns appropriate HTTP status codes and JSON responses:
 
 ## Environment Variables
 
-| Variable    | Description                          | Default      |
-| ----------- | ------------------------------------ | ------------ |
-| PORT        | Server port                          | 5000         |
-| NODE_ENV    | Environment (development/production) | development  |
-| JWT_SECRET  | Secret key for JWT                   | (required)   |
-| JWT_EXPIRE  | JWT expiration time                  | 30d          |
-| DB_HOST     | Database host                        | localhost    |
-| DB_USER     | Database username                    | (required)   |
-| DB_PASSWORD | Database password                    | (required)   |
-| DB_NAME     | Database name                        | task_manager |
+| Variable    | Description         | Default                       |
+| ----------- | ------------------- | ----------------------------- |
+| PORT        | Server port         | 4050                          |
+| JWT_SECRET  | Secret key for JWT  | (required)                    |
+| JWT_EXPIRE  | JWT expiration time | 1h                            |
+| DB_HOST     | Database host       | db host example - (127.0.0.1) |
+| DB_USER     | Database username   | (required)                    |
+| DB_PASSWORD | Database password   | (required)                    |
+| DB_NAME     | Database name       | task_manager                  |
 
 ## Scripts
 
 - `npm run dev` - Start development server with nodemon
 - `npm start` - Start production server
 - `npm run build` - Transpile TypeScript to JavaScript
-- `npm test` - Run tests (if any)
 
 ## Database Schema
 
@@ -243,3 +225,4 @@ CREATE TABLE tasks (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 ```
+````
