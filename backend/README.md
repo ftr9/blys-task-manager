@@ -42,8 +42,6 @@ cd blys-task-manager/backend
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
 ### 3. Set up environment variables
