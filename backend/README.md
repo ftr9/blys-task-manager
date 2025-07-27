@@ -50,7 +50,7 @@ yarn install
 
 Create a `.env` file in the root directory with the following variables:
 
-````env
+```env
 # Server
 PORT=4050
 
@@ -63,11 +63,10 @@ DB_HOST=127.0.0.1
 DB_USER=your_db_username
 DB_PASSWORD=your_db_password
 DB_NAME=task_manager
-
 ```
 
-
 ### 4. Set up the database
+
 Run the SQL script located at `backend/database/init.sql` in your MySQL database.
 You can execute it using a MySQL GUI (like MySQL Workbench, DBeaver, or TablePlus) or directly from the terminal using a MySQL client.
 This script will initialize the necessary tables and schema for the application.
@@ -227,4 +226,7 @@ CREATE TABLE tasks (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 ```
-````
+
+```
+
+```

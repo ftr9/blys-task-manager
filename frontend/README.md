@@ -65,4 +65,4 @@ This project uses [Tailwind CSS](https://tailwindcss.com/) for utility-first sty
 
 ## API
 
-The frontend communicates with the backend API (see backend README for details)
+The frontend communicates with the backend API [see backend README for details](https://github.com/ftr9/blys-task-manager/blob/main/backend/README.md)
