@@ -64,6 +64,8 @@ DB_USER=your_db_username
 DB_PASSWORD=your_db_password
 DB_NAME=task_manager
 
+```
+
 
 ### 4. Set up the database
 Run the SQL script located at `backend/database/init.sql` in your MySQL database.
