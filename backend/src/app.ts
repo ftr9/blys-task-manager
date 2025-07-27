@@ -5,10 +5,19 @@ import taskRoutes from "./routes/taskRoutes";
 import { errorHandler } from "./middleware/errorMiddleware";
 import notFound from "./middleware/notFound";
 import morgan from "morgan";
+import cors from "cors";
 
 const app = express();
 
 // Middleware
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://blys-task-manager-frontend.onrender.com",
+    ],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("tiny"));
