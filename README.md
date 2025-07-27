@@ -72,7 +72,7 @@ cd blys-task-manager
    cd backend
    ```
 
-please refer [backend README.md file for setup](https://github.com/ftr9/blys-task-manager/blob/main/README.md)
+please refer [backend README.md file for setup](https://github.com/ftr9/blys-task-manager/blob/main/backend/README.md)
 
 ### 3. Setup the Frontend
 
