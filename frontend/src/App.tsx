@@ -1,22 +1,30 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import Dashboard from './components/Dashboard';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { Landing, Login, Register, Dashboard } from "./pages";
+
+import AuthProtected from "./components/layout/AuthProtected";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
+    <div className="App">
+      <Router>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Landing />} />
+          <Route element={<AuthProtected />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </div>
-    </Router>
+        <ToastContainer autoClose={1500} />
+      </Router>
+    </div>
   );
 }
 

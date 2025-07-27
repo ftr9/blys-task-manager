@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { CheckCircle, Calendar, Zap } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { CheckCircle, Calendar, Zap } from "lucide-react";
 
-export default function LandingPage() {
+const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-teal-50">
@@ -15,14 +15,14 @@ export default function LandingPage() {
             <span className="text-2xl font-bold text-gray-900">TaskFlow</span>
           </div>
           <div className="flex items-center space-x-4">
-            <button 
-              onClick={() => navigate('/login')}
+            <button
+              onClick={() => navigate("/login")}
               className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
             >
               Sign In
             </button>
-            <button 
-              onClick={() => navigate('/register')}
+            <button
+              onClick={() => navigate("/register")}
               className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               Get Started
@@ -39,18 +39,18 @@ export default function LandingPage() {
             <span className="text-teal-500 block">Like a Pro</span>
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Stay organized, boost productivity, and never miss a deadline with our
-            beautiful and intuitive task management platform.
+            Stay organized, boost productivity, and never miss a deadline with
+            our beautiful and intuitive task management platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => navigate('/register')}
+            <button
+              onClick={() => navigate("/register")}
               className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
             >
               Start Managing Tasks
             </button>
-            <button 
-              onClick={() => navigate('/login')}
+            <button
+              onClick={() => navigate("/login")}
               className="text-gray-700 hover:text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg transition-colors border-2 border-gray-200 hover:border-gray-300"
             >
               Sign In
@@ -66,41 +66,47 @@ export default function LandingPage() {
             Everything you need to stay productive
           </h2>
           <p className="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
-            Powerful features designed to help you organize, prioritize, and complete
-            your tasks efficiently.
+            Powerful features designed to help you organize, prioritize, and
+            complete your tasks efficiently.
           </p>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center group">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
                 <CheckCircle className="w-10 h-10 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Smart Organization</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Smart Organization
+              </h3>
               <p className="text-gray-600 leading-relaxed">
-                Organize tasks with priorities, due dates, and custom statuses. Never lose track of 
-                what matters most.
+                Organize tasks with priorities, due dates, and custom statuses.
+                Never lose track of what matters most.
               </p>
             </div>
-            
+
             <div className="text-center group">
               <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
                 <Calendar className="w-10 h-10 text-emerald-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Timeline Management</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Timeline Management
+              </h3>
               <p className="text-gray-600 leading-relaxed">
-                Set deadlines, track progress, and get insights into your productivity patterns 
-                over time.
+                Set deadlines, track progress, and get insights into your
+                productivity patterns over time.
               </p>
             </div>
-            
+
             <div className="text-center group">
               <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-violet-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-200">
                 <Zap className="w-10 h-10 text-violet-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Lightning Fast</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Lightning Fast
+              </h3>
               <p className="text-gray-600 leading-relaxed">
-                Quick task creation, instant search, and smooth interactions. Built for speed 
-                and efficiency.
+                Quick task creation, instant search, and smooth interactions.
+                Built for speed and efficiency.
               </p>
             </div>
           </div>
@@ -114,10 +120,11 @@ export default function LandingPage() {
             Ready to boost your productivity?
           </h2>
           <p className="text-xl text-teal-100 mb-10 max-w-2xl mx-auto">
-            Join thousands of users who have transformed their workflow with TaskFlow.
+            Join thousands of users who have transformed their workflow with
+            TaskFlow.
           </p>
-          <button 
-            onClick={() => navigate('/register')}
+          <button
+            onClick={() => navigate("/register")}
             className="bg-white hover:bg-gray-50 text-teal-600 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
           >
             Get Started for Free
@@ -126,4 +133,6 @@ export default function LandingPage() {
       </section>
     </div>
   );
-}
+};
+
+export default LandingPage;

@@ -20,9 +20,9 @@ export enum TaskStatus {
   COMPLETED = "completed",
 }
 
-export interface ITaskMetricByStatus{
-  total:number,
-  status:TaskStatus
+export interface ITaskMetricByStatus {
+  total: number;
+  status: TaskStatus;
 }
 
 export interface ITask extends RowDataPacket {
@@ -47,5 +47,3 @@ export interface ITaskCreate {
 }
 
 export interface ITaskUpdate extends Partial<Omit<ITaskCreate, "userId">> {}
-
-

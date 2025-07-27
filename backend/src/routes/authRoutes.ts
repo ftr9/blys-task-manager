@@ -5,7 +5,7 @@ import requiresAuth from '../middleware/requiresAuth';
 
 const router = Router();
 
-// @route   POST /api/authregister
+// @route   POST /api/auth/register
 // @desc    Register a new user
 // @access  Public
 router.post(

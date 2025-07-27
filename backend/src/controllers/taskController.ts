@@ -1,21 +1,19 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import Task from '../models/Task';
-import { asyncHandler } from '../utils/asyncHandler';
-import AppError from '../utils/appError';
+import { Request, Response } from "express";
+import { validationResult } from "express-validator";
+import Task from "../models/Task";
+import { asyncHandler } from "../utils/asyncHandler";
+import AppError from "../utils/appError";
 
 // @desc    Get all tasks for a user
 // @route   GET /api/tasks
 // @access  Private
 export const getTasks = asyncHandler(async (req: Request, res: Response) => {
-
-
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 10;
-  const sortBy = (req.query.sortBy as string) || 'created_at';
-  const sortOrder = (req.query.sortOrder as string) === 'asc' ? 'ASC' : 'DESC';
+  const sortBy = (req.query.sortBy as string) || "created_at";
+  const sortOrder = (req.query.sortOrder as string) === "asc" ? "ASC" : "DESC";
 
-  const { tasks, totalTasks,metricByStatus } = await Task.findAll(
+  const { tasks } = await Task.findAll(
     req.user.id,
     page,
     limit,
@@ -25,16 +23,9 @@ export const getTasks = asyncHandler(async (req: Request, res: Response) => {
 
   res.json({
     success: true,
-    data:{
+    data: {
       tasks,
-      pagination:{
-        page,
-        totalPages: Math.ceil(totalTasks / limit),
-      },
-      metricByStatus,
-      totalTasks,
-    }
-    
+    },
   });
 });
 
@@ -55,7 +46,7 @@ export const createTask = asyncHandler(async (req: Request, res: Response) => {
     description,
     priority,
     status,
-    endDate: endDate ? new Date(endDate).toISOString().split('T')[0] : undefined,
+    endDate,
   });
 
   res.status(201).json({
@@ -79,7 +70,7 @@ export const updateTask = asyncHandler(async (req: Request, res: Response) => {
   // Check if task exists and belongs to user
   const existingTask = await Task.findById(taskId, req.user.id);
   if (!existingTask) {
-    throw new AppError('Task not found', 404);
+    throw new AppError("Task not found", 404);
   }
 
   const updateData: any = {};
@@ -87,12 +78,12 @@ export const updateTask = asyncHandler(async (req: Request, res: Response) => {
   if (description !== undefined) updateData.description = description;
   if (priority) updateData.priority = priority;
   if (status) updateData.status = status;
-  if (endDate) updateData.endDate = new Date(endDate).toISOString().split('T')[0];
+  if (endDate) updateData.endDate = endDate;
 
   const updatedTask = await Task.update(taskId, req.user.id, updateData);
 
   if (!updatedTask) {
-    throw new AppError('Task not found', 404);
+    throw new AppError("Task not found", 404);
   }
 
   res.json({
@@ -110,15 +101,13 @@ export const deleteTask = asyncHandler(async (req: Request, res: Response) => {
   // Check if task exists and belongs to user
   const task = await Task.findById(taskId, req.user.id);
   if (!task) {
-    throw new AppError('Task not found', 404);
+    throw new AppError("Task not found", 404);
   }
 
   await Task.delete(taskId, req.user.id);
 
   res.json({
     success: true,
-    message:"Task deleted successfully",
+    message: "Task deleted successfully",
   });
 });
-
-

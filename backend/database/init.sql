@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS tasks (
   description TEXT,
   priority ENUM('low', 'medium', 'high') NOT NULL DEFAULT 'medium',
   status ENUM('pending','in_progress','completed') NOT NULL DEFAULT 'pending',
-  end_date DATE,
+  end_date TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

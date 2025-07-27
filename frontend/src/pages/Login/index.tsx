@@ -1,36 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle, Mail, Lock } from "lucide-react";
-import { AUTH_API } from "../services/api";
-import Button from "./actions/Button";
-import TextInput from "./dataInput/TextInput";
+import Button from "../../components/actions/Button";
+import TextInput from "../../components/dataInput/TextInput";
 
-export default function LoginPage() {
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  authSelector,
+  login,
+  setRegisterStatusToIdle,
+} from "../../store/slices/authSlice";
+
+const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const { registerStatus } = useAppSelector(authSelector);
+
+  useEffect(() => {
+    if (registerStatus === "resolved") {
+      navigate("/dashboard", {
+        replace: true,
+      });
+      dispatch(setRegisterStatusToIdle());
+    }
+  }, [registerStatus]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    setLoading(true);
     e.preventDefault();
-    setError("");
 
-    try {
-      const { email, password } = formData;
-      await AUTH_API.post("/login", {
-        email,
-        password,
-      });
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.response.data.message);
-    } finally {
-      setLoading(false);
-    }
+    const { email, password } = formData;
+    dispatch(login({ email, password }));
   };
 
   return (
@@ -56,13 +59,8 @@ export default function LoginPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-semibold text-gray-900 mb-2"
-              >
-                Email
-              </label>
               <TextInput
+                label="Email"
                 icon={<Mail className="h-5 w-5" />}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -73,13 +71,8 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-semibold text-gray-900 mb-2"
-              >
-                Password
-              </label>
               <TextInput
+                label="Password"
                 icon={<Lock className="h-5 w-5" />}
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
@@ -89,10 +82,7 @@ export default function LoginPage() {
                 value={formData.password}
               />
             </div>
-
-            {error && <div className="text-red-500 text-sm">* {error}</div>}
-
-            <Button loading={loading}>Sign Up</Button>
+            <Button loading={registerStatus === "pending"}>Sign In</Button>
           </form>
 
           <div className="mt-6 text-center">
@@ -119,4 +109,6 @@ export default function LoginPage() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
