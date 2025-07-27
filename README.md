@@ -71,19 +71,8 @@ cd blys-task-manager
    ```bash
    cd backend
    ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure environment variables (see `backend/README.md` for details).
-4. Initialize the database:
-   - Update your MySQL credentials in `src/config/db.ts` if needed.
-   - Run the SQL in `backend/database/init.sql` to create the schema.
-5. Start the backend server:
-   ```bash
-   npm run dev
-   ```
-   The backend will run on [http://localhost:4050](http://localhost:4050) by default.
+
+please refer [backend README.md file for setup](https://github.com/ftr9/blys-task-manager/blob/main/README.md)
 
 ### 3. Setup the Frontend
 
@@ -91,22 +80,5 @@ cd blys-task-manager
    ```bash
    cd ../frontend
    ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure the API base URL in .env
-4. Start the frontend dev server:
-   ```bash
-   npm run dev
-   ```
-   The frontend will run on [http://localhost:5173](http://localhost:5173) by default.
 
----
-
-## More Information
-
-- See `frontend/readme.md` for frontend-specific details.
-- See `backend/README.md` for backend-specific details, including API documentation and environment variables.
-
----
+please refer [frontend README.md file for detailed setup](https://github.com/ftr9/blys-task-manager/blob/main/frontend/README.md)
